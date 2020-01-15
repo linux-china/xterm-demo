@@ -7,9 +7,11 @@ import org.junit.jupiter.api.Test;
 import org.springframework.http.MediaType;
 import org.springframework.messaging.rsocket.RSocketRequester;
 import org.springframework.util.MimeType;
+import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 import java.net.URI;
+import java.util.List;
 
 /**
  * RSocket Client test
@@ -38,6 +40,13 @@ public class RSocketClientTest {
     public void testOperation() throws Exception {
         Mono<String> user = requester.route("xterm.command").data("ls -al").retrieveMono(String.class);
         System.out.println(user.block());
+    }
+
+    @Test
+    public void testChannel() throws Exception {
+        Flux<String> user = requester.route("xterm.shell").data(Flux.just("first", "second")).retrieveFlux(String.class);
+        List<String> block = user.collectList().block();
+        System.out.println(block.size());
     }
 
 }
