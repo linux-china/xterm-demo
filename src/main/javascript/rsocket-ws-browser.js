@@ -6,6 +6,8 @@ import {
     RSocketClient,
 } from 'rsocket-core';
 import RSocketWebSocketClient from 'rsocket-websocket-client';
+import WebSocket from 'ws';
+import {FlowableProcessor} from "rsocket-flowable";
 
 const maxRSocketRequestN = 2147483647;
 const keepAlive = 60000;
@@ -33,10 +35,9 @@ function routingKey(key) {
     return buffer
 }
 
-// Open the connection
-client.connect().then(socket => {
-    // noinspection JSValidateTypes
-    socket.requestResponse({
+
+function rpc(rsocket) {
+    rsocket.requestResponse({
         data: new Buffer('ls -al'),
         metadata: encodeAndAddWellKnownMetadata(
                 Buffer.alloc(0),
@@ -44,7 +45,37 @@ client.connect().then(socket => {
                 routingKey('xterm.command'),
         )
     }).subscribe({
-        onComplete: (payload) => console.log('Request-response completed %s', new TextDecoder("utf-8").decode(payload.data))
+        onComplete: (payload) => console.log('Request-response completed %s', payload.data)
     });
+}
+
+function channel(rsocket) {
+    let flux = new FlowableProcessor({});
+    rsocket.requestChannel(flux).subscribe({
+        onComplete: () => console.log('Request-channel completed'),
+        onError: error => console.error(`Request-stream error:${error.message}`),
+        onNext: value => console.log('%s', value.data),
+        onSubscribe: sub => sub.request(maxRSocketRequestN),
+    });
+
+    flux.onNext(
+            {
+                data: new Buffer(''),
+                metadata: encodeAndAddWellKnownMetadata(
+                        Buffer.alloc(0),
+                        MESSAGE_RSOCKET_ROUTING,
+                        routingKey('xterm.shell'),
+                )
+            });
+    flux.onNext({data: new Buffer("ls -al")});
+    flux.onComplete();
+}
+
+// Open the connection
+client.connect().then(rsocket => {
+    rpc(rsocket)
 });
 
+
+setTimeout(() => {
+}, 30000000);
