@@ -7,6 +7,7 @@ import {
 } from 'rsocket-core';
 import RSocketTcpClient from 'rsocket-tcp-client';
 
+const maxRSocketRequestN = 2147483647;
 const keepAlive = 60000;
 const lifetime = 180000;
 const dataMimeType = "text/plain";
@@ -33,19 +34,19 @@ function routingKey(key) {
 }
 
 // Open the connection
-client.connect().then(socket => {
-    socket
-            .requestResponse({
-                data: new Buffer('ls -al'),
-                metadata: encodeAndAddWellKnownMetadata(
-                        Buffer.alloc(0),
-                        MESSAGE_RSOCKET_ROUTING,
-                        routingKey('test.service'),
-                )
-            })
-            .subscribe({
-                onComplete: (payload) => console.log('Request-response completed %s', payload.data)
-            });
+client.connect().then(rsocket => {
+    function rpc(rsocket) {
+        rsocket.requestResponse({
+            data: new Buffer('ls -al'),
+            metadata: encodeAndAddWellKnownMetadata(
+                    Buffer.alloc(0),
+                    MESSAGE_RSOCKET_ROUTING,
+                    routingKey('xterm.command'),
+            )
+        }).subscribe({
+            onComplete: (payload) => console.log('Request-response completed %s', payload.data)
+        });
+    }
 });
 
 setTimeout(() => {
