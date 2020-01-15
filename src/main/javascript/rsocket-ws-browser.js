@@ -6,7 +6,6 @@ import {
     RSocketClient,
 } from 'rsocket-core';
 import RSocketWebSocketClient from 'rsocket-websocket-client';
-import WebSocket from 'ws';
 import {FlowableProcessor} from "rsocket-flowable";
 
 const maxRSocketRequestN = 2147483647;
@@ -75,7 +74,3 @@ function channel(rsocket) {
 client.connect().then(rsocket => {
     rpc(rsocket)
 });
-
-
-setTimeout(() => {
-}, 30000000);
