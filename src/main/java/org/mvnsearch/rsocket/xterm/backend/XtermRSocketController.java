@@ -16,7 +16,11 @@ public class XtermRSocketController {
     @MessageMapping("xterm.shell")
     public Flux<String> shell(Flux<String> commands) {
         return commands.map(command -> {
-            return "command: " + command;
+            if (command.isEmpty()) {
+                return "";
+            } else {
+                return ">>> " + command;
+            }
         });
     }
 
