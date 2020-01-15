@@ -1,5 +1,6 @@
-const Terminal = require("xterm").Terminal;
-require("xterm/css/xterm.css");
+import {Terminal} from 'xterm';
+import "xterm/css/xterm.css";
+
 let term = new Terminal();
 term.open(document.getElementById('terminal'));
 term.prompt = () => {
