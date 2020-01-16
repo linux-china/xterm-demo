@@ -4,7 +4,7 @@ const {CleanWebpackPlugin} = require('clean-webpack-plugin');
 
 module.exports = {
     mode: "development",
-    entry: './src/main/javascript/console.js',
+    entry: './src/main/frontend/console.js',
     output: {
         path: path.resolve(__dirname, 'target/classes/public'),
         filename: 'app.bundle.js'
