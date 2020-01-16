@@ -1,6 +1,7 @@
 //xterm imports
 import {Terminal} from 'xterm';
 import { WebLinksAddon } from 'xterm-addon-web-links';
+import { FitAddon } from 'xterm-addon-fit';
 import "xterm/css/xterm.css";
 //rsocket imports
 import {
@@ -37,6 +38,7 @@ function outputRemoteResult(payload) {
 //initialize xterm
 let term = new Terminal();
 term.loadAddon(new WebLinksAddon());
+term.loadAddon(new FitAddon());
 term.open(document.getElementById('terminal'));
 term.prompt = () => {
     term.write('\r\n$');
