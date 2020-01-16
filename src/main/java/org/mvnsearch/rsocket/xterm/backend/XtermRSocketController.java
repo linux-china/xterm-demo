@@ -33,8 +33,14 @@ public class XtermRSocketController {
     public Mono<String> executeCommand(String command, @Nullable String params) {
         if (command.equalsIgnoreCase("info")) {
             return Mono.just("xterm with RSocket: http://rsocket.io");
+        } else if (command.equalsIgnoreCase("help")) {
+            return help();
         }
         return Mono.just(">>> " + command);
+    }
+
+    public Mono<String> help() {
+        return Mono.just("This is help");
     }
 
     @MessageMapping("xterm.command")
