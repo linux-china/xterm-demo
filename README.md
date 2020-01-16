@@ -27,7 +27,7 @@ Then visit [http://localhost:8080/index.html](http://localhost:8080/index.html) 
 * Call functions on FaaS platform
 
 # Todo
-xterm-addon-rsocket???
+xterm-addon-rsocket??? https://github.com/linux-china/xterm-addon-rsocket
 
 # References
 
