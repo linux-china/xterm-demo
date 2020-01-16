@@ -28,6 +28,14 @@ Then visit [http://localhost:8080/index.html](http://localhost:8080/index.html) 
 * JVM info: thread, heap etc
 * Call functions on FaaS platform
 
+# Todo
+
+* xterm-spring-boot-starter???:  @XtermCommand("xxx")
+
+```
+@XtermCommand("xxx")
+public Mono<String> xxx(String params, CommandContext context) 
+```
 # References
 
 * Xterm.js: https://xtermjs.org/
