@@ -7,7 +7,8 @@ A web terminal with following tech stack:
 * Xterm.js to render terminal
 * Input commands to be executed on the backend(Spring Boot + RSocket)
 * RSocket protocol: communication between browser and backend
-* Extension: Please click [XtermRSocketController.java](https://github.com/linux-china/xterm-demo/blob/master/src/main/java/org/mvnsearch/rsocket/xterm/backend/PortalController.java)
+* Extension for backend: Please click [XtermRSocketController.java](https://github.com/linux-china/xterm-demo/blob/master/src/main/java/org/mvnsearch/rsocket/xterm/backend/PortalController.java)
+* xterm-addon-rsocket
 
 # How to run?
 
@@ -26,9 +27,6 @@ Then visit [http://localhost:8080/index.html](http://localhost:8080/index.html) 
 * Metrics Query
 * JVM info: thread, heap etc
 * Call functions on FaaS platform
-
-# Todo
-xterm-addon-rsocket??? https://github.com/linux-china/xterm-addon-rsocket
 
 # References
 
