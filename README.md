@@ -1,5 +1,6 @@
 Xterm.js demo with Spring Boot RSocket
 ======================================
+[![Build Status](https://api.travis-ci.com/linux-china/xterm-demo.svg?branch=master)](https://travis-ci.com/linux-china/xterm-demo)
 
 A web terminal with following tech stack:
 
