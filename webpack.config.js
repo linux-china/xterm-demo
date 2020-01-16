@@ -6,7 +6,7 @@ module.exports = {
     mode: "development",
     entry: './src/main/javascript/console.js',
     output: {
-        path: path.resolve(__dirname, 'dist'),
+        path: path.resolve(__dirname, 'target/classes/public'),
         filename: 'app.bundle.js'
     },
     plugins: [
