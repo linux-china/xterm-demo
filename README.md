@@ -30,12 +30,20 @@ Then visit [http://localhost:8080/index.html](http://localhost:8080/index.html) 
 
 # Todo
 
-* xterm-spring-boot-starter???:  @XtermCommand("xxx")
+* xterm-spring-boot-starter with Spring Shell:
 
 ```
-@XtermCommand("xxx")
-public Mono<String> xxx(String params, CommandContext context) 
+    @ShellMethod("Translate text from one language to another.")
+    public String translate(
+      @ShellOption(mandatory = true) String text,
+      @ShellOption(mandatory = true, defaultValue = "en_US") Locale from,
+      @ShellOption(mandatory = true) Locate to
+    ) {
+      // invoke service
+      return service.translate(text, from, to);
+    } 
 ```
+
 # References
 
 * Xterm.js: https://xtermjs.org/
