@@ -26,6 +26,9 @@ Then visit [http://localhost:8080/index.html](http://localhost:8080/index.html) 
 * JVM info: thread, heap etc
 * Call functions on FaaS platform
 
+# Todo
+xterm-addon-rsocket???
+
 # References
 
 * Xterm.js: https://xtermjs.org/
