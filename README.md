@@ -21,9 +21,9 @@ Then visit [http://localhost:8080/index.html](http://localhost:8080/index.html) 
 # Use Cases
 
 * mysql/redis-cli CLI in browser
-* App Info Viewer
+* App Info Viewer: configuration, refresh
 * Metrics Query
-* JVM info
+* JVM info: thread, heap etc
 
 # References
 
