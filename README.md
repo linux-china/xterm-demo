@@ -18,6 +18,13 @@ Then visit [http://localhost:8080/index.html](http://localhost:8080/index.html) 
 
 ![Xterm Screenshot](.README_images/xterm_screenshot.png)
 
+# Use Cases
+
+* mysql/redis-cli CLI in browser
+* App Info Viewer
+* Metrics Query
+* JVM info
+
 # References
 
 * Xterm.js: https://xtermjs.org/
