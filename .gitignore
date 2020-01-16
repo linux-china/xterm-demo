@@ -234,5 +234,6 @@ buildNumber.properties
 .mvn/timing.properties
 .mvn/wrapper/maven-wrapper.jar
 .flattened-pom.xml
+node/
 
 # End of https://www.gitignore.io/api/node,jetbrains
