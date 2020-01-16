@@ -73,6 +73,7 @@ const lifetime = 180000;
 const dataMimeType = "text/plain";
 const metadataMimeType = MESSAGE_RSOCKET_COMPOSITE_METADATA.string;
 
+const rsocketUrl = "ws://localhost:8080/rsocket";
 const rsocketClient = new RSocketClient({
     setup: {
         keepAlive,
@@ -81,7 +82,7 @@ const rsocketClient = new RSocketClient({
         metadataMimeType,
     },
     transport: new RSocketWebSocketClient(
-            {wsCreator: () => new WebSocket('ws://localhost:8080/rsocket'), debug: true},
+            {wsCreator: () => new WebSocket(rsocketUrl), debug: true},
             BufferEncoders,
     ),
 });
