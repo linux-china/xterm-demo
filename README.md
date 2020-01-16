@@ -6,7 +6,7 @@ A web terminal with following tech stack:
 * Xterm.js to render terminal
 * Input commands to be executed on the backend(Spring Boot + RSocket)
 * RSocket protocol: communication between browser and backend
-* Extension: Please [XtermRSocketController.java](https://github.com/linux-china/xterm-demo/blob/master/src/main/java/org/mvnsearch/rsocket/xterm/backend/PortalController.java)
+* Extension: Please click [XtermRSocketController.java](https://github.com/linux-china/xterm-demo/blob/master/src/main/java/org/mvnsearch/rsocket/xterm/backend/PortalController.java)
 
 # How to run?
 
