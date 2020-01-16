@@ -11,7 +11,7 @@ A web terminal with following tech stack:
 # How to run?
 
 ```
-$ mvn spring-boot:run
+$ mvn compile spring-boot:run
 ```
 
 Then visit [Index Page](http://localhost:8080/index.html) and screenshot alike following:
