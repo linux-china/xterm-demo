@@ -1,5 +1,6 @@
 //xterm imports
 import {Terminal} from 'xterm';
+import { WebLinksAddon } from 'xterm-addon-web-links';
 import "xterm/css/xterm.css";
 //rsocket imports
 import {
@@ -28,13 +29,14 @@ function triggerCommand(command) {
 function outputRemoteResult(payload) {
     if (payload.data != null && payload.data.length > 0) {
         term.write('\b \b');
-        term.write(new TextDecoder("utf-8").decode(payload.data));
+        term.write(payload.data);
         term.prompt();
     }
 }
 
 //initialize xterm
 let term = new Terminal();
+term.loadAddon(new WebLinksAddon());
 term.open(document.getElementById('terminal'));
 term.prompt = () => {
     term.write('\r\n$');
