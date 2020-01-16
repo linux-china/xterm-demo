@@ -24,6 +24,7 @@ Then visit [http://localhost:8080/index.html](http://localhost:8080/index.html) 
 * App Info Viewer: configuration, refresh
 * Metrics Query
 * JVM info: thread, heap etc
+* Call functions on FaaS platform
 
 # References
 
