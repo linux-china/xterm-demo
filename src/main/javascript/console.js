@@ -1,7 +1,7 @@
 //xterm imports
 import {Terminal} from 'xterm';
-import { WebLinksAddon } from 'xterm-addon-web-links';
-import { FitAddon } from 'xterm-addon-fit';
+import {WebLinksAddon} from 'xterm-addon-web-links';
+import {FitAddon} from 'xterm-addon-fit';
 import "xterm/css/xterm.css";
 //rsocket imports
 import {
@@ -51,6 +51,7 @@ term.focus();
 term.onKey((ev) => {
     let key = ev.key;
     let keyboardEvent = ev.domEvent;
+    const printable = !keyboardEvent.altKey && !keyboardEvent.ctrlKey && !keyboardEvent.metaKey;
     if (keyboardEvent.key === "Enter") {
         term.prompt();
         triggerCommand(commandLine);
@@ -60,7 +61,7 @@ term.onKey((ev) => {
             term.write('\b \b');
             commandLine = commandLine.substr(0, commandLine.length - 1);
         }
-    } else {
+    } else if (printable) {
         commandLine += key;
         term.write(key);
     }
