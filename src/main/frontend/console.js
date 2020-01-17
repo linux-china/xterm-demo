@@ -17,6 +17,7 @@ class XtermConsole extends HTMLElement {
             rsocketUrl = schema + document.location.host + rsocketUrl;
         }
         let container = document.createElement('div');
+        container.style.cssText = 'width: 100%; height: 100%;';
         this.append(container);
         //initialize xterm
         let term = new Terminal();
@@ -25,9 +26,11 @@ class XtermConsole extends HTMLElement {
         };
         //load addons
         term.loadAddon(new WebLinksAddon());
-        term.loadAddon(new FitAddon());
+        let fitAddon = new FitAddon();
+        term.loadAddon(fitAddon);
         term.loadAddon(new RSocketAddon(rsocketUrl));
         term.open(container);
+        fitAddon.fit();
         term.writeln('Welcome xterm with RSocket.');
         term.prompt();
         term.focus();
