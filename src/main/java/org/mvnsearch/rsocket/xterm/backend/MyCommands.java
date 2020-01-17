@@ -20,4 +20,9 @@ public class MyCommands {
     public int minus(int a, int b) {
         return a - b;
     }
+
+    @ShellMethod("Display information.")
+    public String info() {
+        return "Xterm with RSocket! http://rsocket.io ";
+    }
 }
