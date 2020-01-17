@@ -4,11 +4,10 @@ Xterm.js demo with Spring Boot RSocket
 
 A web terminal with following tech stack:
 
-* Xterm.js to render terminal
+* Xterm.js to render terminal in browser
 * Input commands to be executed on the backend(Spring Boot + RSocket)
 * Spring Shell command model to write your commands
 * RSocket protocol: communication between browser and backend
-* Extension for backend: Please click [XtermRSocketController.java](https://github.com/linux-china/xterm-demo/blob/master/src/main/java/org/mvnsearch/rsocket/xterm/backend/PortalController.java)
 * xterm-addon-rsocket
 
 # How to run?
@@ -44,7 +43,7 @@ public class MyCommands {
 # Use Cases
 
 * mysql/redis-cli CLI in browser
-* App Info Viewer: configuration, refresh
+* App Info Viewer: configuration, refresh etc
 * Metrics Query
 * JVM info: thread, heap etc
 * Call functions on FaaS platform
