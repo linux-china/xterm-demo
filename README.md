@@ -6,6 +6,7 @@ A web terminal with following tech stack:
 
 * Xterm.js to render terminal
 * Input commands to be executed on the backend(Spring Boot + RSocket)
+* Spring Shell command model to write your commands
 * RSocket protocol: communication between browser and backend
 * Extension for backend: Please click [XtermRSocketController.java](https://github.com/linux-china/xterm-demo/blob/master/src/main/java/org/mvnsearch/rsocket/xterm/backend/PortalController.java)
 * xterm-addon-rsocket
@@ -20,6 +21,26 @@ Then visit [http://localhost:8080/index.html](http://localhost:8080/index.html) 
 
 ![Xterm Screenshot](.README_images/xterm_screenshot.png)
 
+# How to write my command?
+
+You just need to write standard ShellComponent of Spring Shell, and example as following:
+
+```java
+@ShellComponent
+public class MyCommands {
+
+    @ShellMethod("Add two integers together.")
+    public int add(int a, int b) {
+        return a + b;
+    }
+
+    @ShellMethod("Minus two integers together.")
+    public int minus(int a, int b) {
+        return a - b;
+    }
+}
+```
+
 # Use Cases
 
 * mysql/redis-cli CLI in browser
@@ -28,24 +49,9 @@ Then visit [http://localhost:8080/index.html](http://localhost:8080/index.html) 
 * JVM info: thread, heap etc
 * Call functions on FaaS platform
 
-# Todo
-
-* xterm-spring-boot-starter with Spring Shell:
-
-```
-    @ShellMethod("Translate text from one language to another.")
-    public String translate(
-      @ShellOption(mandatory = true) String text,
-      @ShellOption(mandatory = true, defaultValue = "en_US") Locale from,
-      @ShellOption(mandatory = true) Locate to
-    ) {
-      // invoke service
-      return service.translate(text, from, to);
-    } 
-```
-
 # References
 
 * Xterm.js: https://xtermjs.org/
 * Xterm.js addons: https://www.npmjs.com/search?q=xterm%20addon
 * Spring Boot RSocket: https://docs.spring.io/spring-boot/docs/current/reference/htmlsingle/#boot-features-rsocket
+* Spring Shell docs: https://docs.spring.io/spring-shell/docs/2.0.0.RELEASE/reference/htmlsingle/
