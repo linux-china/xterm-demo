@@ -68,30 +68,40 @@ export class RSocketAddon {
 
     attachKeyListener() {
         //term key event for Input & Enter & Backspace
-        this.terminal.onKey((ev) => {
-            let key = ev.key;
-            let keyboardEvent = ev.domEvent;
-            const printable = !keyboardEvent.altKey && !keyboardEvent.ctrlKey && !keyboardEvent.metaKey;
-            if (keyboardEvent.key === "Enter") {
-                this.terminal.prompt();
+        this.terminal.onData((data) => {
+            let code = data.charCodeAt(0);
+            if (code === 13) { // enter
                 this.triggerCommand();
+                this.terminal.prompt();
                 this.commandLine = '';
-            } else if (keyboardEvent.key === "Backspace") {
+            } else if (code === 127) { //backspace
                 if (this.commandLine.length > 0) {
+                    let lastCode = this.commandLine.charCodeAt(this.commandLine.length - 1);
                     this.terminal.write('\b \b');
+                    if (lastCode > 255) { //utf-8 character
+                        this.terminal.write('\b \b');
+                    }
                     this.commandLine = this.commandLine.substr(0, this.commandLine.length - 1);
                 }
-            } else if (printable) {
-                this.commandLine += key;
-                this.terminal.write(key);
+            } else if (code < 32) { // Control
+
+            } else { // Visible
+                this.commandLine += data;
+                this.terminal.write(data);
             }
         });
     }
 
+
     // trigger command execute
     triggerCommand() {
         if (this.commandLine.trim().length > 0) {
-            this.commandFlux.onNext({data: new Buffer(this.commandLine)});
+            if (this.commandLine === "clear") {
+                this.terminal.clear();
+                this.terminal.reset();
+            } else {
+                this.commandFlux.onNext({data: new Buffer(this.commandLine)});
+            }
         }
     }
 
