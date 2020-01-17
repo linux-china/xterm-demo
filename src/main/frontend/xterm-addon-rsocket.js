@@ -97,9 +97,12 @@ export class RSocketAddon {
     // trigger command execute
     triggerCommand() {
         if (this.commandLine.trim().length > 0) {
-            if (this.commandLine === "clear") {
+            if (this.commandLine === "clear") { //clear screen
                 this.terminal.clear();
                 this.terminal.reset();
+            } else if (this.commandLine === "close") { //close window or tab
+                this.terminal.dispose();
+                window.close();
             } else {
                 this.commandFlux.onNext({data: new Buffer(this.commandLine)});
             }
