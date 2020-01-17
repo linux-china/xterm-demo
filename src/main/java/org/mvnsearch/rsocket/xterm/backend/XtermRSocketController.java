@@ -1,7 +1,8 @@
 package org.mvnsearch.rsocket.xterm.backend;
 
-import org.springframework.lang.Nullable;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.handler.annotation.MessageMapping;
+import org.springframework.shell.Shell;
 import org.springframework.stereotype.Controller;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
@@ -13,34 +14,14 @@ import reactor.core.publisher.Mono;
  */
 @Controller
 public class XtermRSocketController {
+    @Autowired
+    private Shell shell;
 
     @MessageMapping("xterm.shell")
     public Flux<String> shell(Flux<String> commands) {
         return commands
                 .filter(data -> !data.trim().isEmpty())
-                .flatMap(data -> {
-                    String commandLine = data.trim();
-                    String command = commandLine;
-                    String params = null;
-                    if (commandLine.contains(" ")) {
-                        command = commandLine.substring(0, commandLine.indexOf(" "));
-                        params = commandLine.substring(commandLine.indexOf(" ") + 1).trim();
-                    }
-                    return executeCommand(command, params);
-                });
-    }
-
-    public Mono<String> executeCommand(String command, @Nullable String params) {
-        if (command.equalsIgnoreCase("info")) {
-            return Mono.just("xterm with RSocket: http://rsocket.io");
-        } else if (command.equalsIgnoreCase("help")) {
-            return help();
-        }
-        return Mono.just(">>> " + command);
-    }
-
-    public Mono<String> help() {
-        return Mono.just("This is help");
+                .flatMap(commandLine -> Mono.fromCallable(() -> this.shell.evaluate(() -> commandLine).toString()));
     }
 
     @MessageMapping("xterm.command")
