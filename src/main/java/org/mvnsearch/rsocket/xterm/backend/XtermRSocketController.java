@@ -23,7 +23,7 @@ public class XtermRSocketController {
     public Flux<String> shell(Flux<String> commands) {
         return commands
                 .filter(data -> !data.trim().isEmpty())
-                .flatMap(commandLine -> Mono.fromCallable(() -> {
+                .map(commandLine -> {
                     Object result = this.shell.evaluate(() -> commandLine);
                     String textOutput;
                     if (result instanceof Exception) {
@@ -34,7 +34,7 @@ public class XtermRSocketController {
                         textOutput = result.toString();
                     }
                     return textOutput;
-                }));
+                });
     }
 
     @MessageMapping("xterm.command")
