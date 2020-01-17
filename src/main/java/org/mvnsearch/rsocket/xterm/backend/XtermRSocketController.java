@@ -1,5 +1,7 @@
 package org.mvnsearch.rsocket.xterm.backend;
 
+import org.jline.utils.AttributedString;
+import org.jline.utils.AttributedStyle;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.shell.Shell;
@@ -21,7 +23,18 @@ public class XtermRSocketController {
     public Flux<String> shell(Flux<String> commands) {
         return commands
                 .filter(data -> !data.trim().isEmpty())
-                .flatMap(commandLine -> Mono.fromCallable(() -> this.shell.evaluate(() -> commandLine).toString()));
+                .flatMap(commandLine -> Mono.fromCallable(() -> {
+                    Object result = this.shell.evaluate(() -> commandLine);
+                    String textOutput;
+                    if (result instanceof Exception) {
+                        textOutput = new AttributedString(result.toString(), AttributedStyle.DEFAULT.foreground(AttributedStyle.RED)).toAnsi();
+                    } else if (result instanceof AttributedString) {
+                        textOutput = ((AttributedString) result).toAnsi();
+                    } else {
+                        textOutput = result.toString();
+                    }
+                    return textOutput;
+                }));
     }
 
     @MessageMapping("xterm.command")
