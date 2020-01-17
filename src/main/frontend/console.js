@@ -9,6 +9,13 @@ class XtermConsole extends HTMLElement {
     constructor() {
         super();
         let rsocketUrl = this.getAttribute('rsocket');
+        if (rsocketUrl.startsWith("/")) { //without schema and host
+            let schema = "ws://";
+            if (document.location.protocol.startsWith("https")) {
+                schema = "wss://";
+            }
+            rsocketUrl = schema + document.location.host + rsocketUrl;
+        }
         let container = document.createElement('div');
         this.append(container);
         //initialize xterm
