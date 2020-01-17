@@ -9,6 +9,11 @@ A web terminal with following tech stack:
 * Spring Shell command model to write your commands
 * RSocket protocol: communication between browser and backend
 * xterm-addon-rsocket
+* Web Components for Xterm
+
+```html
+<xterm-console rsocket="ws://localhost:8080/rsocket"></xterm-console>
+```
 
 # How to run?
 
@@ -48,7 +53,7 @@ public class MyCommands {
 * App Info Viewer: configuration, refresh etc
 * Metrics Query
 * JVM info: thread, heap etc
-* Call functions on FaaS platform
+* Call functions on FaaS platform`
 
 # References
 
