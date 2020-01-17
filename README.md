@@ -40,6 +40,8 @@ public class MyCommands {
 }
 ```
 
+**Attention:** You can choose Picocli to build commands also https://github.com/remkop/picocli/tree/master/picocli-spring-boot-starter
+
 # Use Cases
 
 * mysql/redis-cli CLI in browser
