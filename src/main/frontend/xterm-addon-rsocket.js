@@ -77,8 +77,9 @@ export class RSocketAddon {
             } else if (code === 127) { //backspace
                 if (this.commandLine.length > 0) {
                     let lastCode = this.commandLine.charCodeAt(this.commandLine.length - 1);
-                    this.terminal.write('\b \b');
                     if (lastCode > 255) { //utf-8 character
+                        this.terminal.write('\b \b\b \b');
+                    } else {
                         this.terminal.write('\b \b');
                     }
                     this.commandLine = this.commandLine.substr(0, this.commandLine.length - 1);
