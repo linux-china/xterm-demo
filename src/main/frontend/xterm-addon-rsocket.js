@@ -102,7 +102,7 @@ export class RSocketAddon {
             if (this.commandLine === "clear") { //clear screen
                 this.terminal.clear();
                 this.terminal.reset();
-            } else if (this.commandLine === "close") { //close window or tab
+            } else if (this.commandLine === "exit" || this.commandLine === "quit") { //close window or tab
                 this.terminal.dispose();
                 this.rsocketClient.close();
                 window.close();
