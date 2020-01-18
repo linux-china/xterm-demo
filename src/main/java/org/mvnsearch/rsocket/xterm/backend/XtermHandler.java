@@ -24,6 +24,11 @@ public class XtermHandler {
         } else {
             textOutput = result.toString();
         }
-        return textOutput;
+        //text format for Xterm
+        if (textOutput.contains("\n") && !textOutput.contains("\r\n")) {
+            return textOutput.replaceAll("\n", "\r\n");
+        } else {
+            return textOutput;
+        }
     }
 }
