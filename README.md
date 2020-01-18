@@ -11,9 +11,7 @@ A web terminal with following tech stack:
 * xterm-addon-rsocket
 * Web Components for Xterm
 
-```html
-<xterm-console rsocket="ws://localhost:8080/rsocket"></xterm-console>
-```
+If you want to use Xterm.js in your Spring Boot app, please use https://github.com/linux-china/xtermjs-spring-boot-starter
 
 # How to run?
 
