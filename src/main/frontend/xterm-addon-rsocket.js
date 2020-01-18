@@ -46,7 +46,6 @@ export class RSocketAddon {
         // open rsocket connection
         this.rsocketClient.connect().then(rsocket => {
             this.rsocket = rsocket;
-            console.log("rsocket connected");
             rsocket.requestChannel(this.commandFlux).subscribe({
                 onComplete: () => console.log('Terminal completed'),
                 onError: error => console.log(`Communication error:${error.message}`),
@@ -93,15 +92,19 @@ export class RSocketAddon {
         });
     }
 
-
     // trigger command execute
     triggerCommand() {
+        if (this.rsocket == null) {  //rsocket not available
+            this.terminal.write('\r\n\u001b[31mFailed to connect RSocket backend, please check your service! \u001b[39m');
+            return;
+        }
         if (this.commandLine.trim().length > 0) {
             if (this.commandLine === "clear") { //clear screen
                 this.terminal.clear();
                 this.terminal.reset();
             } else if (this.commandLine === "close") { //close window or tab
                 this.terminal.dispose();
+                this.rsocketClient.close();
                 window.close();
             } else {
                 this.commandFlux.onNext({data: new Buffer(this.commandLine)});
@@ -120,7 +123,6 @@ export class RSocketAddon {
 
     dispose() {
         this.rsocketClient.close();
-        console.log("dispose")
     }
 
     static routingKey(key) {
