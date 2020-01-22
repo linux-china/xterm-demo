@@ -103,6 +103,9 @@ export class RSocketAddon {
                         }
                         break;
                 }
+            } else if (code === 21) { // Control+u to clear line
+                this.terminal.write("\r\x1B[K$");
+                this.commandLine = "";
             } else if (code < 32) { // Control
 
             } else { // Visible
