@@ -19,6 +19,7 @@ export class RSocketAddon {
     constructor(url, options) {
         // current command line
         this.commandLine = '';
+        // commands history
         this.history = new HistoryController(100);
         // command flux
         this.commandFlux = new FlowableProcessor({});
